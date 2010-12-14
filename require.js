@@ -12,6 +12,7 @@ setInterval: false, importScripts: false, jQuery: false */
 
 var require, define;
 (function () {
+    
     //Change this version number for each release.
     var version = "0.15.0+",
             empty = {}, s,
@@ -1068,6 +1069,41 @@ var require, define;
         };
     };
 
+    req.getUrl = function (moduleName, config, contextName) {
+        var
+        baseUrl;
+        /*
+          name = moduleName.replace(/\..*$/gi,"");
+          name = name.replace(/\//gi,'.'); 
+          
+          
+            
+          if(name in n4.$namedObjects ) {
+          var namedObj = n4.$namedObjects[name];
+          if(!namedObj.loading) {
+          namedObj.loading = true;
+          var deps = getNamedObjectDeps.call(namedObj);
+          var len = deps.length;
+          for(var ii = 0; ii < len; ++ii) {
+          var dep = deps[ii];
+          dep.loading = true;
+          var path = dep.name.replace(/\./gi,'/');
+          module.load(path, contextName);
+          }
+          }
+          } 
+        */
+        if (window.$native && $native.resolvePath) {
+            baseUrl = $native.resolvePath(moduleName);
+        }
+        
+        if (!baseUrl) {
+            baseUrl = config.baseUrl + moduleName;
+        }
+        return baseUrl;
+    };
+
+    
     /**
      * Start of a public API replacement for nameToUrl. For now, just leverage
      * nameToUrl, but know that nameToUrl will go away in the future.
@@ -1142,7 +1178,7 @@ var require, define;
 
             //Join the path parts together, then figure out if baseUrl is needed.
             url = syms.join("/") + (ext || ".js");
-            url = (url.charAt(0) === '/' || url.match(/^\w+:/) ? "" : config.baseUrl) + url;
+            url = (url.charAt(0) === '/' || url.match(/^\w+:/) ? "" : req.getUrl(url, config, contextName));
         }
         return config.urlArgs ? url +
                                 ((url.indexOf('?') === -1 ? '?' : '&') +
@@ -1375,18 +1411,76 @@ var require, define;
         return modRequire;
     }
 
+    function setValueByName(name, value) { 
+        var current, path, segments, segment;
+        
+        if (typeof name === "string") {
+            segments  = name.split(/\//gi);
+            
+            while (segments.length && (segment = segments.shift())) {
+                
+                if (!current) {
+                    
+                    current = window;
+                }
+                
+                if (!segments.length) {
+                    if (value) {
+                        current[segment] = value;
+                    } else if (!(segment in current)) {
+                        current[segment] = {};
+                    }
+                }
+                else if (!(segment in current)) {
+                    current[segment] = {};
+                }
+                current = current[segment];
+            }
+        }
+    }
+
+    
+    function getSkeletonCtor(ctors, name) {
+        return function () {
+            if (ctors[name]) {
+                ctors[name].apply(this, arguments);
+            }
+        };
+    }
+
+    function deSkeletonify(name, defined, ctors, real) {
+        var skeleton, p;
+        if (real) {
+            skeleton = defined[name];
+            skeleton.prototype = real.prototype;
+            skeleton.prototype.constructor = real;
+            ctors[name] = real;
+            for (p in real) {
+                if (p !== "prototype") {
+                    skeleton[p] = real[p];
+                }
+            }
+            delete skeleton.$SKELETON; //deskeletonify
+            
+        }
+
+        return skeleton;
+
+    }
+    
     /**
      * Executes the modules in the correct order.
      * 
      * @private
      */
-    req.exec = function (module, traced, waiting, context) {
+    req.exec = function (module, traced, waiting, context, ctors) {
         //Some modules are just plain script files, abddo not have a formal
         //module definition, 
         if (!module) {
             //Returning undefined for Spidermonky strict checking in Komodo
             return undefined;
         }
+        ctors = ctors || {};
 
         var name = module.name, cb = module.callback, deps = module.deps, j, dep,
             defined = context.defined, ret, args = [], depModule, cjsModule,
@@ -1427,7 +1521,28 @@ var require, define;
                     //definition framework to still work -- allow a web site to
                     //gradually update to contained modules. That is more
                     //important than forcing a throw for the circular dependency case.
-                    depModule = depName in defined ? defined[depName] : (traced[depName] ? undefined : req.exec(waiting[waiting[depName]], traced, waiting, context));
+                    //depModule = depName in defined ? defined[depName] :
+                    //(traced[depName] ? undefined : req.exec(waiting[waiting[depName]], traced, waiting, context));
+                    if (defined[depName] && !defined[depName].$SKELETON) {
+                        depModule = defined[depName];
+                    } else {
+                        if (traced[depName]) {
+                            if (!defined[depName]) {
+                                depModule = getSkeletonCtor(ctors, depName);
+                                depModule.$SKELETON = true;
+                                defined[depName] = depModule;
+                            } else {
+                                depModule = defined[depName];
+                            }
+                        } else {
+                            depModule = req.exec(waiting[waiting[depName]],
+                                                 traced,
+                                                 waiting,
+                                                 context,
+                                                 ctors);
+                        }
+                    }
+
                 }
 
                 args.push(depModule);
@@ -1446,12 +1561,21 @@ var require, define;
                     ret = defined[name];
                 } else {
                     if (cjsModule && "exports" in cjsModule) {
-                        ret = defined[name] = cjsModule.exports;
+                        if (defined[name] && defined[name].$SKELETON) {
+                            deSkeletonify(name, defined, ctors, cjsModule.exports);
+                        } else {
+                            ret = defined[name] = cjsModule.exports;
+                        }
                     } else {
                         if (name in defined && !usingExports) {
-                            req.onError(new Error(name + " has already been defined"));
+                            if (defined[name] && defined[name].$SKELETON) {
+                                deSkeletonify(name, defined, ctors, ret);
+                            } else {
+                                req.onError(new Error(name + " has already been defined"));
+                            }
+                        } else {
+                            defined[name] = ret;
                         }
-                        defined[name] = ret;
                     }
                 }
             }
@@ -1476,7 +1600,18 @@ var require, define;
      * @private
      */
     req.execCb = function (name, cb, args) {
-        return cb.apply(null, args);
+        var module;
+        /*
+         * N4 change. FIXME: remove setvaluebyname once fully converted
+         * shouldn't need things set in namespace any more
+         */
+        setValueByName(name);
+        module = cb.apply(null, args);
+        if (module && module.meta) {
+           module.meta.name = name; 
+        }
+        setValueByName(name, module);
+        return module;
     };
 
     //>>excludeStart("requireExcludeModify", pragmas.requireExcludeModify);
