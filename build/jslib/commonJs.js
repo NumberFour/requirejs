@@ -9,7 +9,7 @@
 "use strict";
 
 var commonJs = {
-    depRegExp: /require\s*\(\s*["']([\w-_\.\/]+$)["']\s*\)/g,
+    depRegExp: /require\s*\(\s*["']([\w-_\.\/]+)["']\s*\)/g,
 
     //Set this to false in non-rhino environments. If rhino, then it uses
     //rhino's decompiler to remove comments before looking for require() calls,

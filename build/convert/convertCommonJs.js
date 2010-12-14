@@ -13,6 +13,8 @@
 
 "use strict";
 
+var args;
+
 var myPath = arguments[0],
     commonJsPath = arguments[1],
     savePath = arguments[2],
