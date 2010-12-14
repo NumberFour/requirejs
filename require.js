@@ -10,7 +10,7 @@ setTimeout: false, traceDeps: true, clearInterval: false, self: false,
 setInterval: false, importScripts: false, jQuery: false */
 "use strict";
 
-var require, define;
+var require, define, module;
 (function () {
     
     //Change this version number for each release.
@@ -254,7 +254,7 @@ var require, define;
      * return a value to define the module corresponding to the first argument's
      * name.
      */
-    define = req.def = function (name, deps, callback, contextName) {
+    module = define = req.def = function (name, deps, callback, contextName) {
         var i, scripts, script, node = currentlyAddingScript;
 
         //Allow for anonymous functions
@@ -1608,7 +1608,7 @@ var require, define;
         setValueByName(name);
         module = cb.apply(null, args);
         if (module && module.meta) {
-           module.meta.name = name; 
+            module.meta.name = name; 
         }
         setValueByName(name, module);
         return module;
