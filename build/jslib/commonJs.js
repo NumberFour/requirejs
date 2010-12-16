@@ -9,7 +9,7 @@
 "use strict";
 
 var commonJs = {
-    depRegExp: /require\s*\(\s*["']([\w-_\.\/]+)["']\s*\)/g,
+    depRegExp: /require\s*\(\s*["']([\w-_\.\/$]+)["']\s*\)/g,
 
     //Set this to false in non-rhino environments. If rhino, then it uses
     //rhino's decompiler to remove comments before looking for require() calls,
@@ -107,6 +107,7 @@ var commonJs = {
     rjsRegExp: /require\s*\(\s*(\[|function)/,
 
     moduleRegExp: /module\s*\(/,
+    hasExportsRegExp: /module\.exports/,
     
     /**
      * Does the actual file conversion.
@@ -140,7 +141,8 @@ var commonJs = {
             //First see if the module is not already RequireJS-formatted.
             if (commonJs.defRegExp.test(tempContents) ||
                 commonJs.rjsRegExp.test(tempContents) ||
-                commonJs.moduleRegExp.test(tempContents)) {
+                !commonJs.hasExportsRegExp.test(tempContents)
+               )  {
                 return fileContents;
             }
 
