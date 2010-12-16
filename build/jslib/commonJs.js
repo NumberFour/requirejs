@@ -115,9 +115,9 @@ var commonJs = {
      */
     rjsRegExp: /require\s*\(\s*(\[|function)/,
 
-    hasModuleExportsRegExp: /\bmodule\.exports/,
-    hasExportsRegExp: /\bexports\./,
-    
+    hasModuleExportsRegExp: /\b(?:module\.)?exports(?:\.|\s*=)/,
+    //hasExportsRegExp: /\bexports\./,
+
 
     /**
      * Does the actual file conversion.
@@ -151,7 +151,6 @@ var commonJs = {
             //First see if the module is not already RequireJS-formatted.
             if (commonJs.defRegExp.test(tempContents) ||
                 commonJs.rjsRegExp.test(tempContents) ||
-                !commonJs.hasExportsRegExp.test(tempContents) ||
                 !commonJs.hasModuleExportsRegExp.test(tempContents)
                )  {
                 return fileContents;
