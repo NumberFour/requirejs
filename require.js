@@ -229,6 +229,11 @@ var require, define, module;
         return undefined;
     };
 
+    module = function (name, deps, callback) {
+        return main(name, deps, callback);
+        
+    };
+    
     //Alias for caja compliance internally -
     //specifically: "Dynamically computed names should use require.async()"
     //even though this spec isn't really decided on.
@@ -1178,7 +1183,7 @@ var require, define, module;
 
             //Join the path parts together, then figure out if baseUrl is needed.
             url = syms.join("/") + (ext || ".js");
-            url = (url.charAt(0) === '/' || url.match(/^\w+:/) ? "" : req.getUrl(url, config, contextName));
+            url = (url.charAt(0) === '/' || url.match(/^\w+:/) ? url : req.getUrl(url, config, contextName));
         }
         return config.urlArgs ? url +
                                 ((url.indexOf('?') === -1 ? '?' : '&') +
