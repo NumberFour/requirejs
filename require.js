@@ -1493,7 +1493,7 @@ var require, define, module;
 
         //If already traced or defined, do not bother a second time.
         if (name) {
-            if (traced[name] || name in defined) {
+            if (traced[name] || (name in defined && !defined[name].$EXPORTS)) {
                 return defined[name];
             }
 
@@ -1505,11 +1505,12 @@ var require, define, module;
         if (deps) {
             for (j = 0; (dep = deps[j]); j++) {
                 depName = dep.name;
+                
                 if (depName === "require") {
                     depModule = makeRequire(context, name);
                 } else if (depName === "exports") {
                     //CommonJS module spec 1.1
-                    depModule = defined[name] = {};
+                    depModule = defined[name] = {$EXPORTS : true};
                     usingExports = true;
                 } else if (depName === "module") {
                     //CommonJS module spec 1.1
@@ -1528,11 +1529,14 @@ var require, define, module;
                     //important than forcing a throw for the circular dependency case.
                     //depModule = depName in defined ? defined[depName] :
                     //(traced[depName] ? undefined : req.exec(waiting[waiting[depName]], traced, waiting, context));
-                    if (defined[depName] && !defined[depName].$SKELETON) {
+
+                    
+                    if (defined[depName] && !defined[depName].$SKELETON &&
+                        !defined[depName].$EXPORTS) {
                         depModule = defined[depName];
                     } else {
                         if (traced[depName]) {
-                            if (!defined[depName]) {
+                            if (!defined[depName] || defined[depName].$EXPORTS) {
                                 depModule = getSkeletonCtor(ctors, depName);
                                 depModule.$SKELETON = true;
                                 defined[depName] = depModule;
@@ -1949,3 +1953,4 @@ var require, define, module;
         }, 0);
     }
 }());
+  
