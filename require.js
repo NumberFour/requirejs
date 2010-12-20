@@ -1578,7 +1578,7 @@ var require, define, module;
                     } else {
                         if (name in defined && !usingExports) {
                             if (defined[name] && defined[name].$SKELETON) {
-                                deSkeletonify(name, defined, ctors, ret);
+                                ret = deSkeletonify(name, defined, ctors, ret);
                             } else {
                                 req.onError(new Error(name + " has already been defined"));
                             }
