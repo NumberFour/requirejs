@@ -1571,7 +1571,7 @@ var require, define, module;
                 } else {
                     if (cjsModule && "exports" in cjsModule) {
                         if (defined[name] && defined[name].$SKELETON) {
-                            deSkeletonify(name, defined, ctors, cjsModule.exports);
+                            ret = deSkeletonify(name, defined, ctors, cjsModule.exports);
                         } else {
                             ret = defined[name] = cjsModule.exports;
                         }
@@ -1594,6 +1594,10 @@ var require, define, module;
         //Execute modifiers, if they exist.
         req.execModifiers(name, traced, waiting, context);
         //>>excludeEnd("requireExcludeModify");
+        setValueByName(name, ret);
+        if (ret && ret.meta) {
+            ret.meta.name = name; 
+        }
 
         return ret;
     };
@@ -1616,10 +1620,6 @@ var require, define, module;
          */
         setValueByName(name);
         module = cb.apply(null, args);
-        if (module && module.meta) {
-            module.meta.name = name; 
-        }
-        setValueByName(name, module);
         return module;
     };
 
