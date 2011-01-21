@@ -153,6 +153,7 @@ var commonJs = {
                 commonJs.rjsRegExp.test(tempContents) ||
                 !commonJs.hasModuleExportsRegExp.test(tempContents)
                )  {
+                logger.trace("not converting since allready converted or no module.exports");
                 return fileContents;
             }
 
