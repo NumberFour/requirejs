@@ -1458,7 +1458,9 @@ var require, define, module;
         if (real) {
             skeleton = defined[name];
             skeleton.prototype = real.prototype;
-            skeleton.prototype.constructor = real;
+            if (skeleton.prototype) {
+                skeleton.prototype.constructor = real;
+            }
             ctors[name] = real;
             for (p in real) {
                 if (p !== "prototype") {
@@ -1489,7 +1491,7 @@ var require, define, module;
 
         var name = module.name, cb = module.callback, deps = module.deps, j, dep,
             defined = context.defined, ret, args = [], depModule, cjsModule,
-            usingExports = false, depName;
+            usingExports = false, depName, exports;
 
         //If already traced or defined, do not bother a second time.
         if (name) {
@@ -1510,7 +1512,7 @@ var require, define, module;
                     depModule = makeRequire(context, name);
                 } else if (depName === "exports") {
                     //CommonJS module spec 1.1
-                    depModule = defined[name] = {$EXPORTS : true};
+                    depModule = exports = {$EXPORTS : true};
                     usingExports = true;
                 } else if (depName === "module") {
                     //CommonJS module spec 1.1
@@ -1531,12 +1533,11 @@ var require, define, module;
                     //(traced[depName] ? undefined : req.exec(waiting[waiting[depName]], traced, waiting, context));
 
                     
-                    if (defined[depName] && !defined[depName].$SKELETON &&
-                        !defined[depName].$EXPORTS) {
+                    if (defined[depName] && !defined[depName].$SKELETON) {
                         depModule = defined[depName];
                     } else {
                         if (traced[depName]) {
-                            if (!defined[depName] || defined[depName].$EXPORTS) {
+                            if (!defined[depName]) {
                                 depModule = getSkeletonCtor(ctors, depName);
                                 depModule.$SKELETON = true;
                                 defined[depName] = depModule;
@@ -1567,7 +1568,11 @@ var require, define, module;
                 //and the "module" object for this definition function did not
                 //define an exported value, then use the exports object.
                 if (usingExports && ret === undefined && (!cjsModule || !("exports" in cjsModule))) {
-                    ret = defined[name];
+                    if (defined[name]) {
+                        ret = deSkeletonify(name, defined, ctors, exports);
+                    } else {
+                        ret = defined[name] = exports;
+                    }
                 } else {
                     if (cjsModule && "exports" in cjsModule) {
                         if (defined[name] && defined[name].$SKELETON) {
