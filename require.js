@@ -12,7 +12,7 @@ setInterval: false, importScripts: false, jQuery: false */
 
 var require, define, module;
 (function () {
-    
+
     //Change this version number for each release.
     var version = "0.15.0+",
             empty = {}, s,
@@ -48,7 +48,7 @@ var require, define, module;
             cfg = require;
         }
     }
-    
+
     //>>excludeStart("requireExcludePlugin", pragmas.requireExcludePlugin);
     /**
      * Calls a method on a plugin. The obj object should have two property,
@@ -68,7 +68,7 @@ var require, define, module;
             waiting.push(obj);
 
             //Load the module
-            req(["require/" + prefix], context.contextName);
+            req(["require/require/" + prefix], context.contextName);
         }
     }
     //>>excludeEnd("requireExcludePlugin");
@@ -231,9 +231,9 @@ var require, define, module;
 
     module = function (name, deps, callback) {
         return main(name, deps, callback);
-        
+
     };
-    
+
     //Alias for caja compliance internally -
     //specifically: "Dynamically computed names should use require.async()"
     //even though this spec isn't really decided on.
@@ -722,7 +722,7 @@ var require, define, module;
                     context.defined.jquery = $;
                 }
 
-                //Make sure 
+                //Make sure
                 if (context.scriptCount) {
                     $.readyWait += 1;
                     context.jQueryIncremented = true;
@@ -1047,7 +1047,7 @@ var require, define, module;
      * Splits a name into a possible plugin prefix and
      * the module name. If baseName is provided it will
      * also normalize the name via require.normalizeName()
-     * 
+     *
      * @param {String} name the module name
      * @param {String} [baseName] base name that name is
      * relative to.
@@ -1079,10 +1079,10 @@ var require, define, module;
         baseUrl;
         /*
           name = moduleName.replace(/\..*$/gi,"");
-          name = name.replace(/\//gi,'.'); 
-          
-          
-            
+          name = name.replace(/\//gi,'.');
+
+
+
           if(name in n4.$namedObjects ) {
           var namedObj = n4.$namedObjects[name];
           if(!namedObj.loading) {
@@ -1096,19 +1096,19 @@ var require, define, module;
           module.load(path, contextName);
           }
           }
-          } 
+          }
         */
         if (window.$native && $native.resolvePath) {
             baseUrl = $native.resolvePath(moduleName);
         }
-        
+
         if (!baseUrl) {
             baseUrl = config.baseUrl + moduleName;
         }
         return baseUrl;
     };
 
-    
+
     /**
      * Start of a public API replacement for nameToUrl. For now, just leverage
      * nameToUrl, but know that nameToUrl will go away in the future.
@@ -1416,19 +1416,19 @@ var require, define, module;
         return modRequire;
     }
 
-    function setValueByName(name, value) { 
+    function setValueByName(name, value) {
         var current, path, segments, segment;
-        
+
         if (typeof name === "string") {
             segments  = name.split(/\//gi);
-            
+
             while (segments.length && (segment = segments.shift())) {
-                
+
                 if (!current) {
-                    
+
                     current = window;
                 }
-                
+
                 if (!segments.length) {
                     if (value) {
                         current[segment] = value;
@@ -1444,7 +1444,7 @@ var require, define, module;
         }
     }
 
-    
+
     function getSkeletonCtor(ctors, name) {
         return function () {
             if (ctors[name]) {
@@ -1468,21 +1468,21 @@ var require, define, module;
                 }
             }
             delete skeleton.$SKELETON; //deskeletonify
-            
+
         }
 
         return skeleton;
 
     }
-    
+
     /**
      * Executes the modules in the correct order.
-     * 
+     *
      * @private
      */
     req.exec = function (module, traced, waiting, context, ctors) {
         //Some modules are just plain script files, abddo not have a formal
-        //module definition, 
+        //module definition,
         if (!module) {
             //Returning undefined for Spidermonky strict checking in Komodo
             return undefined;
@@ -1507,7 +1507,7 @@ var require, define, module;
         if (deps) {
             for (j = 0; (dep = deps[j]); j++) {
                 depName = dep.name;
-                
+
                 if (depName === "require") {
                     depModule = makeRequire(context, name);
                 } else if (depName === "exports") {
@@ -1532,7 +1532,7 @@ var require, define, module;
                     //depModule = depName in defined ? defined[depName] :
                     //(traced[depName] ? undefined : req.exec(waiting[waiting[depName]], traced, waiting, context));
 
-                    
+
                     if (defined[depName] && !defined[depName].$SKELETON) {
                         depModule = defined[depName];
                     } else {
@@ -1601,7 +1601,7 @@ var require, define, module;
         //>>excludeEnd("requireExcludeModify");
         setValueByName(name, ret);
         if (ret && ret.meta) {
-            ret.meta.name = name; 
+            ret.meta.name = name;
         }
 
         return ret;
@@ -1958,4 +1958,3 @@ var require, define, module;
         }, 0);
     }
 }());
-  
