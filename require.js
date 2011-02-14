@@ -68,7 +68,7 @@ var require, define, module;
             waiting.push(obj);
 
             //Load the module
-            req(["require/require/" + prefix], context.contextName);
+            req(["require/" + prefix], context.contextName);
         }
     }
     //>>excludeEnd("requireExcludePlugin");
