@@ -252,6 +252,11 @@ var require, define, module;
         throw err;
     };
 
+    req.getContext = function (name) {
+        name = name || s.ctxName;
+        return s.contexts[name];
+    };
+
     /**
      * The function that handles definitions of modules. Differs from
      * require() in that a string for the module should be the first argument,
@@ -1276,6 +1281,10 @@ var require, define, module;
             err = new Error("require.js load timeout for modules: " + noLoads);
             err.requireType = "timeout";
             err.requireModules = noLoads;
+            context.scriptCount = 0; // JM clean up
+            context.waiting = []; // JM clean up
+            context.loaded = {};
+            context.isCheckLoaded = false; // JM clean up
             req.onError(err);
         }
         if (stillLoading) {
@@ -1600,7 +1609,7 @@ var require, define, module;
         req.execModifiers(name, traced, waiting, context);
         //>>excludeEnd("requireExcludeModify");
         setValueByName(name, ret);
-        if (ret && ret.meta) {
+        if (typeof ret === "function" && ret.meta) {
             ret.meta.name = name;
         }
 
