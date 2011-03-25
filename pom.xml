@@ -132,6 +132,7 @@
             <id>n4-snapshot</id>
             <name>Hosted Snapshot</name>
             <url>http://repo.corp.numberfour.eu/nexus/content/repositories/hosted-snapshot</url>
+            <uniqueVersion>false</uniqueVersion>
         </snapshotRepository>
     </distributionManagement>
 
