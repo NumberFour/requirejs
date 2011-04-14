@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildpath>
+	<buildpathentry kind="src" path="src/main/javascript">
+		<attributes>
+			<attribute name="n4.ide.core.sourcePathType" value="source"/>
+		</attributes>
+	</buildpathentry>
+    <buildpathentry kind="src" path="src/test/javascript">
+        <attributes>
+            <attribute name="n4.ide.core.sourcePathType" value="test"/>
+        </attributes>
+    </buildpathentry>
+</buildpath>
