@@ -19,17 +19,16 @@
         <version>2.5</version>
         <executions>
           <execution>
-            <id>get-source</id>
-            <phase>prepare-package</phase>
+            <id>package-unmodified-source</id>
+            <phase>compile</phase>
             <goals>
               <goal>copy-resources</goal>
             </goals>
             <configuration>
-              <outputDirectory>${basedir}/target/classes</outputDirectory>
-              <overwrite>true</overwrite>
+              <outputDirectory>${project.basedir}/target/classes</outputDirectory>
               <resources>
                 <resource>
-                  <directory>src/main/javascript</directory>
+                  <directory>${project.basedir}/src/main/resources</directory>
                   <filtering>false</filtering>
                 </resource>
               </resources>
