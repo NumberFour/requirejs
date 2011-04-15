@@ -11,33 +11,6 @@
     <version>0.0.2</version>
     <relativePath>../build/client-pom</relativePath>
   </parent>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-resources-plugin</artifactId>
-        <version>2.5</version>
-        <executions>
-          <execution>
-            <id>package-unmodified-source</id>
-            <phase>compile</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${project.basedir}/target/classes</outputDirectory>
-              <resources>
-                <resource>
-                  <directory>${project.basedir}/src/main/resources</directory>
-                  <filtering>false</filtering>
-                </resource>
-              </resources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
   <scm>
     <connection>scm:git:ssh://git@github.com/NumberFour/requirejs.git</connection>
     <url>http://github.com/NumberFour/requirejs</url>
