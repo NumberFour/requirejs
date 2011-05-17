@@ -140,7 +140,7 @@ var commonJs = {
     convert: function (moduleName, fileName, fileContents, skipDeps) {
         //Strip out comments.
         if (commonJs.useLog) {
-            logger.trace("fileName: " + fileName);
+            logger.trace("JOEfileName: " + fileName);
         }
         try {
             var deps = [], depName, match,
@@ -178,7 +178,8 @@ var commonJs = {
             }
 
             //Construct the wrapper boilerplate.
-            fileContents = 'define(["require", "exports", "module"' +
+            
+            fileContents = 'define("' + moduleName +'", ["require", "exports", "module"' +
                    (deps.length ? ', ' + deps.join(",") : '') + '], ' +
                    'function(require, exports, module) { ' +
                    (commonJs.logConverted ? 'global._requirejs_logger.trace("Evaluating module: ' + moduleName + '");\n' : "") +

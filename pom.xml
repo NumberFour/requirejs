@@ -112,6 +112,28 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>default-jar</id>
+                        <goals><goal>jar</goal></goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <includes>
+                                <include>require.js</include>
+                                <include>require/i18n.js</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>everything</id>
+                        <goals><goal>jar</goal></goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <classifier>everything</classifier>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>attach-test</id>
                         <goals>
                             <goal>test-jar</goal>
