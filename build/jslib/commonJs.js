@@ -140,20 +140,22 @@ var commonJs = {
     convert: function (moduleName, fileName, fileContents, skipDeps) {
         //Strip out comments.
         if (commonJs.useLog) {
-            logger.trace("JOEfileName: " + fileName);
+            logger.trace("fileName: " + fileName);
         }
         try {
             var deps = [], depName, match,
                 //Remove comments
                 tempContents = commonJs.removeComments(fileContents, fileName),
-                baseName = moduleName.split("/");
+                baseName = moduleName.split("/"),
+                actualModuleName
+            ;
 
             //First see if the module is not already RequireJS-formatted.
             if (commonJs.defRegExp.test(tempContents) ||
                 commonJs.rjsRegExp.test(tempContents) ||
                 !commonJs.hasModuleExportsRegExp.test(tempContents)
                )  {
-                logger.trace("not converting since allready converted or no module.exports");
+                logger.trace("Not converting since already converted or no module.exports");
                 return fileContents;
             }
 
@@ -176,13 +178,15 @@ var commonJs = {
                     }
                 }
             }
-
+            actualModuleName = moduleName.replace(/\\/g, '/').replace(/^.*\/javascript\//, '').replace(/\.js/, '');
             //Construct the wrapper boilerplate.
             
-            fileContents = 'define("' + moduleName +'", ["require", "exports", "module"' +
+            fileContents = 'define("' + actualModuleName + '", ["require", "exports", "module"' +
                    (deps.length ? ', ' + deps.join(",") : '') + '], ' +
                    'function(require, exports, module) { ' +
-                   (commonJs.logConverted ? 'global._requirejs_logger.trace("Evaluating module: ' + moduleName + '");\n' : "") +
+                   (commonJs.logConverted
+                        ? 'global._requirejs_logger.trace("Evaluating module: ' + actualModuleName + '");\n'
+                        : "") +
                    fileContents +
                    '});\n';
         } catch (e) {
