@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildpath>
+	<buildpathentry including="require.js|require/" kind="src" path="">
+		<attributes>
+			<attribute name="n4.ide.core.sourcePathType" value="content"/>
+		</attributes>
+	</buildpathentry>
+</buildpath>
