@@ -1,3 +1,4 @@
+/**@globals document window*/
 /**
  * @license RequireJS order Copyright (c) 2010, The Dojo Foundation All Rights Reserved.
  * Available via the MIT or new BSD license.

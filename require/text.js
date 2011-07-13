@@ -1,3 +1,4 @@
+/**@globals XMLHttpRequest ActiveXObject*/
 /**
  * @license RequireJS text Copyright (c) 2010, The Dojo Foundation All Rights Reserved.
  * Available via the MIT or new BSD license.
