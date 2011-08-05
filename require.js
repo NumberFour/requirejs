@@ -949,7 +949,7 @@ var require, define, module;
 
         // n4
         if (ret.$SKELETON) {
-            console.warn("returning SKELETON of the " + moduleName);
+            console.warn("Returning SKELETON of the " + moduleName + " to " + relModuleName);
         }
 
         return ret;
