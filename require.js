@@ -946,6 +946,12 @@ var require, define, module;
                         "' has not been loaded yet for context: " +
                         contextName));
         }
+
+        // n4
+        if (ret.$SKELETON) {
+            console.warn("returning SKELETON of the " + moduleName);
+        }
+
         return ret;
     };
 
