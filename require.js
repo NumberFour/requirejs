@@ -1641,7 +1641,8 @@ var require, define, module;
         }
         catch(e){
             if(window.console){
-                console.log(e.stack);
+                window.console.log("Error while requiring "+name);
+                window.console.log(e.stack);
             }
             e.message = "Error while requiring "+name+": "+ e.message;
             throw e;
