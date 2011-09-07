@@ -2,11 +2,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>eu.numberfour</groupId>
     <artifactId>requirejs</artifactId>
-    <version>0.15.11-SNAPSHOT</version>
+    <version>0.15.13-SNAPSHOT</version>
     <parent>
       <groupId>n4.build</groupId>
       <artifactId>god-pom</artifactId>
-      <version>0.0.12</version>
+      <version>0.0.15</version>
       <relativePath>../god-pom</relativePath>
     </parent>
     <build>

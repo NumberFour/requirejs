@@ -1640,8 +1640,19 @@ var require, define, module;
          * shouldn't need things set in namespace any more
          */
         setValueByName(name);
-        module = cb.apply(null, args);
-        return module;
+        //N4 change: catch errors while constructing objects
+        try{
+            module = cb.apply(null, args);
+            return module;
+        }
+        catch(e){
+            if(window.console){
+                window.console.log("Error while requiring "+name);
+                window.console.log(e.stack);
+            }
+            e.message = "Error while requiring "+name+": "+ e.message;
+            throw e;
+        }
     };
 
     //>>excludeStart("requireExcludeModify", pragmas.requireExcludeModify);
