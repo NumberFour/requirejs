@@ -1641,8 +1641,13 @@ var require, define, module;
         }
         catch(e){
             if(window.console){
-                window.console.log("Error while requiring "+name);
-                window.console.log(e.stack);
+                if(e.stack){
+                    window.console.log("Error while requiring "+name);
+                    window.console.log(e.stack);
+                }
+                else{
+                    window.console.log("Error while requiring "+name+". (No stacktrace available)");
+                }
             }
             e.message = "Error while requiring "+name+": "+ e.message;
             throw e;
