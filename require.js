@@ -955,11 +955,6 @@ var require, define, module;
                         contextName));
         }
 
-        // n4
-        if (ret.$SKELETON) {
-            console.warn("Returning SKELETON of the " + moduleName + " to " + relModuleName);
-        }
-
         return ret;
     };
 
