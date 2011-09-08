@@ -217,6 +217,14 @@ var require, define, module;
             }
         }
 
+        if (callback && isFunction(callback) && n4 && n4.$postLoader) {
+            var oldCallback = callback;
+            callback = function() {
+                n4.$postLoader.executeHandlers();
+                oldCallback.apply(null, arguments);
+            }
+        }
+        
         main(null, deps, callback, config, contextName, relModuleName);
 
         //If the require call does not trigger anything new to load,
@@ -955,6 +963,20 @@ var require, define, module;
         return ret;
     };
 
+    /*
+     * N4: the same as above, but doesn't throw exception if module isn't loaded
+     */
+    req.getModule = function (moduleName, contextName, relModuleName) {
+        if (moduleName === "require" || moduleName === "exports" || moduleName === "module") {
+            req.onError(new Error("Explicit require of " + moduleName + " is not allowed."));
+        }
+        contextName = contextName || s.ctxName;
+        var context = s.contexts[contextName], nameProps;
+        //Normalize module name, if it contains . or ..
+        nameProps = req.splitPrefix(moduleName, relModuleName, context);
+        return context.defined[nameProps.name];
+    };
+   
     /**
      * Makes the request to load a module. May be an async load depending on
      * the environment and the circumstance of the load call. Override this
@@ -1984,4 +2006,57 @@ var require, define, module;
             resume(ctx);
         }, 0);
     }
+}());
+
+// n4 additions for proper loading of cyclic dependencies
+var n4 = n4 || {};
+
+n4.$postLoader = (function() { 
+    var queue = {}; 
+    var undef;
+
+    return {
+        /**
+         * @param {String} dependencyName fully qualified name of the dependency, i.e. "pack/MyClass"
+         * @param {Function} handler post load hander wchich takes one argument that is a desired type
+         */
+        addHandler : function(dependencyName, handler) {
+            var module = require.getModule(dependencyName);
+            if (module !== undef) {
+               handler(module); 
+            }
+            else {
+                var handlers = queue[dependencyName];
+                if (handlers === undef) {
+                    handlers = [];
+                    queue[dependencyName] = handlers;
+                }
+                handlers.push(handler);
+            }
+        },
+
+        /**
+         * Executes all handlers from the queue that have their dependency satisfied
+         */
+        executeHandlers : function() {
+            var loaded = [];
+            var dependencyName;
+            for (dependencyName in queue) {
+                if (queue.hasOwnProperty(dependencyName)) {
+                    var module = require.getModule(dependencyName);
+                    if (module !== undef) {
+                       var handlers = queue[dependencyName];
+                       queue[dependencyName] = []; // TODO is it possible to delete at this point?
+                       loaded.push(dependencyName);
+                       for (var i = 0; i < handlers.length; ++i) {
+                         handlers[i](module);
+                       }
+                    }
+                }
+            }
+            for (dependencyName in loaded) {
+                delete queue[dependencyName];
+            }
+        }
+    };
 }());
