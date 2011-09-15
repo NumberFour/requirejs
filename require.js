@@ -1910,6 +1910,10 @@ var require, define, module;
         var callbacks = s.readyCalls, i, callback, contexts, context, prop;
 
         if (s.isPageLoaded && s.isDone) {
+            // N4: begin
+            n4.$postLoader.executeHandlers();
+            // N4: end
+            
             if (callbacks.length) {
                 s.readyCalls = [];
                 for (i = 0; (callback = callbacks[i]); i++) {
