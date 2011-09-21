@@ -403,7 +403,7 @@ var require, define, module;
             newContext = {
                 contextName: contextName,
                 config: {
-                    waitSeconds: 7,
+                    waitSeconds: 120,
                     baseUrl: s.baseUrl || "./",
                     paths: {},
                     packages: {}
