@@ -5,6 +5,7 @@
  */
 /*jslint regexp: false, nomen: false, plusplus: false */
 /*global require: false, navigator: false */
+/** @globals navigator */
 "use strict";
 
 /**
