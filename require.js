@@ -1,4 +1,4 @@
-/**@globals importScripts navigator document*/ 
+/**@globals importScripts navigator document self $native setTimeout setInterval clearInterval jQuery */ 
 /** vim: et:ts=4:sw=4:sts=4
  * @license RequireJS 0.15.0+ Copyright (c) 2010, The Dojo Foundation All Rights Reserved.
  * Available via the MIT or new BSD license.
