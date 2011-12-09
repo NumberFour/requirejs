@@ -1,0 +1,5 @@
+#Fri Dec 09 11:49:36 CET 2011
+eclipse.preferences.version=1
+org.eclipse.dltk.javascript.parser.JSParserProblemGroup\#DECLARATION_HIDES_OTHER=IGNORE
+org.eclipse.dltk.javascript.parser.JSParserProblemGroup\#DUPLICATE_DECLARATION=IGNORE
+org.eclipse.dltk.javascript.parser.JSParserProblemGroup\#DUPLICATE_DECLARATION_OTHER_KIND=IGNORE
