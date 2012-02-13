@@ -1,0 +1,5 @@
+#Mon Feb 13 20:08:52 NOVT 2012
+INTERNAL_MODE=false
+OUTPUT_PATH=target/classes
+TEST_OUTPUT_PATH=target/test-classes
+eclipse.preferences.version=1

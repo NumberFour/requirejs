@@ -1,4 +1,4 @@
-#Fri Dec 09 11:49:36 CET 2011
+#Mon Feb 13 18:37:37 NOVT 2012
 eclipse.preferences.version=1
 org.eclipse.dltk.internal.javascript.ti.JSDocProblem\#DUPLICATE_PARAM=IGNORE
 org.eclipse.dltk.internal.javascript.ti.JSDocProblem\#DUPLICATE_TAG=IGNORE
@@ -8,6 +8,7 @@ org.eclipse.dltk.internal.javascript.ti.JSDocProblem\#UNKNOWN_PARAM=IGNORE
 org.eclipse.dltk.internal.javascript.ti.JSDocProblem\#WRONG_SUPPRESS_WARNING=IGNORE
 org.eclipse.dltk.internal.javascript.ti.JSDocProblem\#WRONG_TYPE_SYNTAX=IGNORE
 org.eclipse.dltk.javascript.core.JavaScriptProblems\#DECLARATION_MISMATCH_ACTUAL_RETURN_TYPE=IGNORE
+org.eclipse.dltk.javascript.core.JavaScriptProblems\#DECLARATION_MISMATCH_ACTUAL_RETURN_TYPE_PARAMETERIZATION=IGNORE
 org.eclipse.dltk.javascript.core.JavaScriptProblems\#DEPRECATED_FUNCTION=IGNORE
 org.eclipse.dltk.javascript.core.JavaScriptProblems\#DEPRECATED_METHOD=IGNORE
 org.eclipse.dltk.javascript.core.JavaScriptProblems\#DEPRECATED_PROPERTY=IGNORE
@@ -25,7 +26,7 @@ org.eclipse.dltk.javascript.core.JavaScriptProblems\#REASSIGNMENT_OF_CONSTANT=IG
 org.eclipse.dltk.javascript.core.JavaScriptProblems\#RETURN_INCONSISTENT=IGNORE
 org.eclipse.dltk.javascript.core.JavaScriptProblems\#STATIC_METHOD=IGNORE
 org.eclipse.dltk.javascript.core.JavaScriptProblems\#STATIC_PROPERTY=IGNORE
-org.eclipse.dltk.javascript.core.JavaScriptProblems\#UNDECLARED_VARIABLE=IGNORE
+org.eclipse.dltk.javascript.core.JavaScriptProblems\#UNDECLARED_VARIABLE=ERROR
 org.eclipse.dltk.javascript.core.JavaScriptProblems\#UNDEFINED_JAVA_METHOD=IGNORE
 org.eclipse.dltk.javascript.core.JavaScriptProblems\#UNDEFINED_JAVA_PROPERTY=IGNORE
 org.eclipse.dltk.javascript.core.JavaScriptProblems\#UNDEFINED_METHOD=IGNORE
@@ -35,4 +36,5 @@ org.eclipse.dltk.javascript.core.JavaScriptProblems\#UNREACHABLE_CODE=IGNORE
 org.eclipse.dltk.javascript.core.JavaScriptProblems\#UNUSED_VARIABLE=IGNORE
 org.eclipse.dltk.javascript.core.JavaScriptProblems\#WRONG_JAVA_PARAMETERS=IGNORE
 org.eclipse.dltk.javascript.core.JavaScriptProblems\#WRONG_PARAMETERS=IGNORE
+org.eclipse.dltk.javascript.core.JavaScriptProblems\#WRONG_PARAMETERS_PARAMETERIZATION=IGNORE
 org.eclipse.dltk.javascript.core.JavaScriptProblems\#WRONG_TYPE_EXPRESSION=IGNORE

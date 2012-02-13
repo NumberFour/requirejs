@@ -1,4 +1,4 @@
-#Fri Dec 09 11:49:36 CET 2011
+#Mon Feb 13 18:37:37 NOVT 2012
 eclipse.preferences.version=1
 n4.ide.javascript.core.N4JooseProblem\#ARRAY_INITIALIZER_EXPECTED=IGNORE
 n4.ide.javascript.core.N4JooseProblem\#BOOLEAN_LITERAL_EXPECTED=IGNORE
@@ -30,6 +30,7 @@ n4.ide.javascript.core.N4JooseProblem\#UNEXPECTED_OBJECT_LITERAL_ELEMENT=IGNORE
 n4.ide.javascript.core.N4JooseProblem\#UNPAIRED_NATIVE_OR_NATIVE_OBJECT=IGNORE
 n4.ide.javascript.core.N4JooseProblem\#UNRECOGNIZED_HAS_OPTION=IGNORE
 n4.ide.javascript.core.N4JooseProblem\#UNRECOGNIZED_PROPERTY_NAME=IGNORE
+n4.ide.javascript.core.N4JooseProblem\#UNSUPPORTED_JOOSE_TYPE=IGNORE
 n4.ide.javascript.core.N4Problem\#GENERIC_TYPE_ERROR=IGNORE
 n4.ide.javascript.core.N4Problem\#NATIVE_FUNCTION_HAS_BODY=IGNORE
 n4.ide.javascript.core.N4Problem\#PARAM_LACKS_TYPE=IGNORE

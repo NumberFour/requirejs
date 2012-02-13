@@ -2,7 +2,7 @@
 <buildpath>
 	<buildpathentry including="require.js|require/i18n.js" kind="src" path="">
 		<attributes>
-			<attribute name="n4.ide.core.sourcePathType" value="content"/>
+			<attribute name="n4.ide.core.sourcePathType" value="source"/>
 		</attributes>
 	</buildpathentry>
 </buildpath>
