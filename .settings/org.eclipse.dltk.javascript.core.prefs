@@ -1,7 +1,8 @@
-#Mon Feb 13 18:37:37 NOVT 2012
+#Mon Feb 13 20:30:49 NOVT 2012
 eclipse.preferences.version=1
 org.eclipse.dltk.internal.javascript.ti.JSDocProblem\#DUPLICATE_PARAM=IGNORE
 org.eclipse.dltk.internal.javascript.ti.JSDocProblem\#DUPLICATE_TAG=IGNORE
+org.eclipse.dltk.internal.javascript.ti.JSDocProblem\#IGNORED_TAG=IGNORE
 org.eclipse.dltk.internal.javascript.ti.JSDocProblem\#MISSING_PARAMETER_NAME=IGNORE
 org.eclipse.dltk.internal.javascript.ti.JSDocProblem\#PARAMETER_MISSING_ANNOTATION=IGNORE
 org.eclipse.dltk.internal.javascript.ti.JSDocProblem\#UNKNOWN_PARAM=IGNORE
@@ -36,5 +37,7 @@ org.eclipse.dltk.javascript.core.JavaScriptProblems\#UNREACHABLE_CODE=IGNORE
 org.eclipse.dltk.javascript.core.JavaScriptProblems\#UNUSED_VARIABLE=IGNORE
 org.eclipse.dltk.javascript.core.JavaScriptProblems\#WRONG_JAVA_PARAMETERS=IGNORE
 org.eclipse.dltk.javascript.core.JavaScriptProblems\#WRONG_PARAMETERS=IGNORE
+org.eclipse.dltk.javascript.core.JavaScriptProblems\#WRONG_PARAMETERS_UNTYPED=IGNORE
+org.eclipse.dltk.javascript.core.JavaScriptProblems\#WRONG_FUNCTION=IGNORE
 org.eclipse.dltk.javascript.core.JavaScriptProblems\#WRONG_PARAMETERS_PARAMETERIZATION=IGNORE
 org.eclipse.dltk.javascript.core.JavaScriptProblems\#WRONG_TYPE_EXPRESSION=IGNORE
