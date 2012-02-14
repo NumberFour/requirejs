@@ -3,12 +3,17 @@
     <groupId>eu.numberfour</groupId>
     <artifactId>requirejs</artifactId>
     <version>0.15.21-SNAPSHOT</version>
+    <packaging>nfar</packaging>
     <parent>
       <groupId>n4.build</groupId>
-      <artifactId>god-pom</artifactId>
+      <artifactId>client-pom</artifactId>
       <version>0.25.0</version>
-      <relativePath>../god-pom</relativePath>
+      <relativePath>../client-pom</relativePath>
     </parent>
+    <properties>
+        <!-- TODO remove -->
+        <n4.compiler.version>0.38.7-SNAPSHOT</n4.compiler.version>
+    </properties>
     <build>
         <defaultGoal>install</defaultGoal>
         <resources>
@@ -95,22 +100,6 @@
                     </execution -->
                 </executions>
             </plugin>
-
-<!--
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
--->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -120,6 +109,7 @@
                         <goals><goal>jar</goal></goals>
                         <phase>package</phase>
                         <configuration>
+                            <classifier>runtime</classifier>
                             <includes>
                                 <include>require.js</include>
                                 <include>require/i18n.js</include>
