@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="ASCII"?>
-<pmi:MProject xmlns:pmi="http://numberfour.eu/ide/2011/pmi.ecore" name="requirejs" version="0.15.12"/>
+<pmi:MProject xmlns:pmi="http://numberfour.eu/ide/2011/pmi.ecore" name="requirejs" version="0.15.21-SNAPSHOT" type="LIBRARY">
+    <files key="require.js">
+        <value commonModule="false"/>
+    </files>
+    <files key="require/i18n.js">
+        <value commonModule="false"/>
+    </files>
+</pmi:MProject>
