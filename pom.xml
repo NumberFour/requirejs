@@ -12,36 +12,6 @@
     </parent>
     <build>
         <defaultGoal>install</defaultGoal>
-        <resources>
-            <resource>
-                <directory>.</directory>
-                <excludes>
-                    <exclude>target</exclude>
-                    <exclude>pom.xml</exclude>
-                </excludes>
-            </resource>
-        </resources>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <artifactId>maven-assembly-plugin</artifactId>
-                    <configuration>
-                        <descriptorRefs>
-                            <descriptorRef>jar-with-dependencies</descriptorRef>
-                        </descriptorRefs>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.0.2</version>
-                    <configuration>
-                        <source>1.6</source>
-                        <target>1.6</target>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -68,34 +38,6 @@
                 </dependencies>
             </plugin>
             
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <configuration>
-                    <type>jar</type>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>unpack-dependencies</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>unpack-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <overWriteReleases>false</overWriteReleases>
-                            <overWriteSnapshots>true</overWriteSnapshots>
-                            <excludeTransitive>true</excludeTransitive>
-                        </configuration>
-                    </execution>
-                    <!-- execution>
-                        <id>sources</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>sources</goal>
-                        </goals>
-                    </execution -->
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -134,11 +76,8 @@
 
         </plugins>
     </build>
-
     <scm>
-
         <connection>scm:git:ssh://git@github.com/NumberFour/requirejs.git</connection>
         <url>http://github.com/NumberFour/requirejs</url>
     </scm>
-
 </project>
