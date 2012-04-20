@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<pmi:MProject xmlns:pmi="http://numberfour.eu/ide/2011/pmi.ecore" name="requirejs" version="0.19.21-SNAPSHOT" type="LIBRARY">
+<pmi:MProject xmlns:pmi="http://numberfour.eu/ide/2011/pmi.ecore" name="requirejs" version="0.19.21" type="LIBRARY">
   <files key="require.js">
     <value commonModule="false"/>
   </files>
