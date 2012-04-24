@@ -7,7 +7,7 @@
     <parent>
       <groupId>n4.build</groupId>
       <artifactId>client-pom</artifactId>
-      <version>0.28.0</version>
+      <version>0.28.1</version>
       <relativePath>../client-pom</relativePath>
     </parent>
     <build>
